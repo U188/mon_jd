@@ -24,28 +24,40 @@ async def ssss(session: CommandSession):
 		if re.match(phone, ipone):
 				await session.send('请等待。。。。')
 				send_code = nolanjdc.sendsms(ipone)			
-				time.sleep(10)
+				time.sleep(8)
 				if '安全验证' in send_code:
 					#ipone1 = await session.aget(prompt='嗨！ 再输入手机号码:')
-					await session.send('正在滑块验证中。。。。')
-					succ=nolanjdc.AutoCaptcha(ipone)
-					if  succ:
-						code = await session.aget(prompt='嗯！验证码该发我了:')
-						if len(code) != 6:
-							await session.send('丢！你数数你验证码多少位！')
-						else:
-							if code:
-								qq = await session.aget(prompt='嗯！QQ该发我了:')
-								msg1 = nolanjdc.VerifyCode(ipone,qq,code)
-								await session.send(f'哇！{msg1}')
-								#s=[]
-					else:
-						await session.send('验证失败了，5分钟后再来吧！')
+					n=1
+					while n<=3:
+						await session.send(f'正在进行第{n}次滑块验证中。。。。')
+						succ=nolanjdc.AutoCaptcha(ipone)
 
+						time.sleep(3)
+						await session.send(f'{succ}')
+						if succ != True:
+							if n==3:
+								await session.send(f'第{n}次滑块验证失败,退出程序。去http://phone.audbean.tk:5701/login登陆吧！')
+								break
+							await session.send(f'第{n}次滑块验证失败，进入下一次验证！')
+							n += 1
+							continue
+						else:
+							code = await session.aget(prompt='嗯！验证码该发我了:')
+							if len(code) != 6:
+								await session.send('丢！你数数你验证码多少位！')
+							else:
+								if code:
+									qq = await session.aget(prompt='嗯！QQ该发我了:')
+									msg1 = nolanjdc.VerifyCode(ipone,qq,code)
+									if '成功' in msg1:
+										await session.send('恭喜上车成功!')
+									else:
+										await session.send(f'{msg1}')
+									break
 				else:
 					await session.send('安全验证没有了，请联系管理员！')
 		else:
 			#s=[]
 			await session.send('你发的什么东西？我感觉不是手机号码.......')
-			await session.send('也可能是号码段没有加进数据库，如果确定号码无误请联系管理员添加！')
+			#await session.send('也可能是号码段没有加进数据库，如果确定号码无误请联系管理员添加！')
 			await session.send('拜拜了您！')
