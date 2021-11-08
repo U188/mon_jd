@@ -1,7 +1,10 @@
 import requests
-uu='nolanjdc地址' #jdc地址如http://asadasd:5701
+import bot_plugins.service.read_conf as conff
+
+
 def sendsms(phone):
-    url=f'{uu}/api/SendSMS'
+    url=conff.read_conf()
+    url=f'{url}/api/SendSMS'
     data={
         'Phone':phone,
         'qlkey':0
@@ -10,15 +13,17 @@ def sendsms(phone):
     return result.json()['message']
     
 def AutoCaptcha(phone):
-    url=f'{uu}/api/AutoCaptcha'
+    url=conff.read_conf()
+    url=f'{url}/api/AutoCaptcha'
     data={
         'Phone':phone
     }
-    result=requests.post(url,json=data,timeout=240)
+    result=requests.post(url,json=data,timeout=360)
     return result.json()['success']
 
 def VerifyCode(phone,qq,code):
-    url=f'{uu}/api/VerifyCode'
+    url=conff.read_conf()
+    url=f'{url}/api/VerifyCode'
     qq=str(qq)
     data={
         'Phone':phone,
