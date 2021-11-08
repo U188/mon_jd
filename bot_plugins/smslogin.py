@@ -22,8 +22,8 @@ async def ssss(session: CommandSession):
 		ipone = await session.aget(prompt='嗨！ 请输入手机号码:')
 		phone = re.compile('^(13(0|1|2|3|7|8|9|6|5|4)|16(0|1|2|3|7|8|9|6|5|4)|17(0|8|5|6|2|3|7)|18(0|1|2|3|4|6|7|8|9)|15(1|2|3|5|6|7|8|9)|19(0|1|3|8|9))\d{8}$')
 		if re.match(phone, ipone):
-				await session.send('请等待。。。。')
-				send_code = nolanjdc.sendsms(ipone)			
+				await session.send('请等待8秒。。。')
+				send_code = nolanjdc.sendsms(ipone)
 				time.sleep(8)
 				if '安全验证' in send_code:
 					#ipone1 = await session.aget(prompt='嗨！ 再输入手机号码:')
@@ -52,7 +52,13 @@ async def ssss(session: CommandSession):
 									if '成功' in msg1:
 										await session.send('恭喜上车成功!')
 									else:
-										await session.send(f'{msg1}')
+										
+										if '验证码输入错误' in msg1:
+												code2 = await session.aget(prompt='验证码错误，请重新输入验证码:')
+												msg1 = nolanjdc.VerifyCode(ipone,qq,code1)
+												await session.send(f'{msg1}')
+										else:
+											await session.send(f'{msg1}')
 									break
 				else:
 					await session.send('安全验证没有了，请联系管理员！')
