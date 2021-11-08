@@ -10,7 +10,7 @@ COMMAND_START=["/", ""]
 # 表示一条命令的超时（没有用户输入）时间。
 SESSION_EXPIRE_TIMEOUT = timedelta(minutes=2)
 #DEBUG = False
-NICKNAME = { 'lucia', '小姐姐', '美妞' }
+NICKNAME = { '助理', '小姐姐', '呆瓜' }
 # 服务器和端口
 HOST = '127.0.0.1'
 PORT = 8765
