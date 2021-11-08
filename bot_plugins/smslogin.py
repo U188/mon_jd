@@ -52,11 +52,10 @@ async def ssss(session: CommandSession):
 									if '成功' in msg1:
 										await session.send('恭喜上车成功!')
 									else:
-										
 										if '验证码输入错误' in msg1:
-												code2 = await session.aget(prompt='验证码错误，请重新输入验证码:')
-												msg1 = nolanjdc.VerifyCode(ipone,qq,code1)
-												await session.send(f'{msg1}')
+											code2 = await session.aget(prompt='验证码错误，请重新输入验证码:')
+											msg1 = nolanjdc.VerifyCode(ipone,qq,code1)
+											await session.send(f'{msg1}')
 										else:
 											await session.send(f'{msg1}')
 									break
