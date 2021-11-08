@@ -1,13 +1,20 @@
 import sys
+#sys.path.append('/root/jd/mon_jd/bot_plugins/service')
 import bot_plugins.service.nolanjdc as nolanjdc
+import bot_plugins.service.read_conf as conff
 from nonebot.command import CommandSession
 from nonebot.experimental.plugin import on_command
-import time
-import re
+import time, re
+
 
 @on_command('登陆', aliases=('登录', 'login'))
 #@on_command('ping', permission=lambda sender: sender.is_superuser)
 async def ssss(session: CommandSession):
+	global url
+	url=conff.read_conf()
+	#if len(s)!=0:
+		#await session.send('有人正在和我说话，你等5分钟再来吧！')
+	#else:
 	ipone = session.current_arg_text.strip()
 	if not ipone:
 		await session.send('请在5分钟内结束这次对话！')
@@ -28,8 +35,9 @@ async def ssss(session: CommandSession):
 						time.sleep(3)
 						await session.send(f'{succ}')
 						if succ != True:
+							time.sleep(1)
 							if n==3:
-								await session.send(f'第{n}次滑块验证失败,退出程序。去http://phone.audbean.tk:5701/login登陆吧！')
+								await session.send(f'第{n}次滑块验证失败,退出程序。去{url}登陆吧！')
 								break
 							await session.send(f'第{n}次滑块验证失败，进入下一次验证！')
 							n += 1
@@ -37,7 +45,8 @@ async def ssss(session: CommandSession):
 						else:
 							code = await session.aget(prompt='嗯！验证码该发我了:')
 							if len(code) != 6:
-								await session.send('丢！你数数你验证码多少位！')
+								await session.send('丢！你数数你验证码多少位！再见')
+								break
 							else:
 								if code:
 									qq = await session.aget(prompt='嗯！QQ该发我了:')
@@ -47,7 +56,7 @@ async def ssss(session: CommandSession):
 									else:
 										
 										if '验证码输入错误' in msg1:
-											code2 = await session.aget(prompt='验证码错误，请重新输入验证码:')
+											code1 = await session.aget(prompt='验证码错误，请重新输入验证码:')
 											msg1 = nolanjdc.VerifyCode(ipone,qq,code1)
 											await session.send(f'{msg1}')
 										else:
