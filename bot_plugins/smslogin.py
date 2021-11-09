@@ -20,7 +20,7 @@ async def ssss(session: CommandSession):
 		await session.send('请在5分钟内结束这次对话！')
 		time.sleep(1)
 		ipone = await session.aget(prompt='嗨！ 请输入手机号码:')
-		phone = re.compile('^(13(0|1|2|3|7|8|9|6|5|4)|16(0|1|2|3|7|8|9|6|5|4)|17(0|8|5|6|2|3|7)|18(0|1|2|3|4|6|7|8|9)|15(1|2|3|5|6|7|8|9)|19(0|1|3|8|9))\d{8}$')
+		phone = re.compile('^(13(0|1|2|3|7|8|9|6|5|4)|16(0|1|2|3|7|8|9|6|5|4)|17(0|8|5|6|2|3|7)|18(0|1|2|3|4|5|6|7|8|9)|15(1|2|3|5|6|7|8|9)|19(0|1|3|8|9))\d{8}$')
 		if re.match(phone, ipone):
 				await session.send('请等待。。。。')
 				send_code = nolanjdc.sendsms(ipone)
