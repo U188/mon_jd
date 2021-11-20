@@ -139,7 +139,7 @@ def do_task_and_get_gift(token, comp, iphone, userid):
             pass
     else:
         messagea = '不满足兑换条件，跳过'
-    return sign_mess, share_mess, messagea
+    return sign_mess, share_mess,integral, messagea
 
 
 def maina():
@@ -154,10 +154,10 @@ def maina():
                 comp = each['comp']
                 qq=each['qq']
                 token, userid = get_token(iphone, passw)
-                sign_mess, share_mess, messagea = do_task_and_get_gift(token, comp, iphone, userid)
-                me += f'第{m}个账户{qq}:\n每日签到：{sign_mess}\n分享任务：{share_mess}\n兑换：{messagea}\n'
+                sign_mess, share_mess,integral, messagea = do_task_and_get_gift(token, comp, iphone, userid)
+                me += f'第{m}个账户{qq}:\n每日签到：{sign_mess}\n分享任务：{share_mess}\n积分：{integral}\n兑换：{messagea}\n'
             elif not all(each.values()):
-                pushplus_bot('太太乐', f"第{m}个账户{qq}:\n空账户\n状态:跳过\n")
+                pushplus_bot('太太乐', f"第{m}个账户:\n空账户\n状态:跳过\n")
             m += 1
         except Exception as e:
             print(e)
