@@ -10,7 +10,7 @@ import requests, json, os,random,time,re
 gift_list = ['61', '62', '631', '633']
 # 导入账户
 try:
-    from ttl_json import accounts
+    from bot_plugins.service.ttl_json import accounts
     lists = accounts
 except Exception as error:
     print(f'失败原因:{error}')
@@ -136,35 +136,6 @@ def main():
             print(f'太太乐:\t每日签到：{sign_mess}\t分享任务：{share_mess}\t兑换：{messagea}')
         elif not all(each.values()):
             print("账号:空账户\t状态:跳过")
-
-
-
-# 定义pushplus推送
-def pushplus_bot(title, content):
-    PUSH_PLUS_TOKEN = os.environ['PUSH_PLUS_TOKEN']
-    try:
-        print("\n")
-        if not PUSH_PLUS_TOKEN:
-            print("PUSHPLUS服务的token未设置!!\n取消推送")
-            return
-        print("PUSHPLUS服务启动")
-        url = 'http://www.pushplus.plus/send'
-        data = {
-            "token": PUSH_PLUS_TOKEN,
-            "title": title,
-            "content": content
-        }
-        body = json.dumps(data).encode(encoding='utf-8')
-        headers = {'Content-Type': 'application/json'}
-        response = requests.post(url=url, data=body, headers=headers).json()
-        if response['code'] == 200:
-            print('推送成功！')
-        else:
-            print('推送失败！')
-    except Exception as e:
-        print(e)
-
-
 if __name__ == '__main__':
     #token,userid=get_token('13091159008','xm552297')
     #print(get_gift(token,userid,'13091159008',61))
