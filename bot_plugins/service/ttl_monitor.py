@@ -10,7 +10,7 @@ import requests, json, os,random,time,re
 gift_list = ['61', '62', '631', '633']
 # 导入账户
 try:
-    from bot_plugins.service.ttl_json import accounts
+    from ttl_json import accounts
     lists = accounts
 except Exception as error:
     print(f'失败原因:{error}')
