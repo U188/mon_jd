@@ -9,7 +9,7 @@ try:
 except Exception as error:
     print(f'失败原因:{error}')
     lists = []
-qqnums=['302761125','2256401730']
+qqnums=['','']
 
 @on_command('话费车', aliases=('太太乐', 'ttl'))
 async def ssss(session: CommandSession):
