@@ -191,8 +191,6 @@ def pushplus_bot(title, content):
 
 '''
 if __name__ == '__main__':
-    # token,userid=get_token('13091159008','xm552297')
-    # print(get_gift(token,userid,'13091159008',61))
     maina()
 '''
 schedule.every().day.at("09:00").do(maina)
