@@ -159,6 +159,7 @@ def maina():
     m = 1
     me = ''
     for each in lists:
+        print('-'*20+f'当前执行第个{m}账户'+'-'*20)
         try:
             if each['iphone'] != '' and each['passw'] != '' and each['comp'] != '':
                 iphone = each['iphone']
@@ -200,7 +201,24 @@ def pushplus_bot(title, content):
             print('推送失败！')
     except Exception as e:
         print(e)
+#QQ推送
 
+def send_qq(qqgroup,mess):
+    QQurl=f"http://127.0.0.1:6547/send_group_msg?group_id={qqgroup}&message={mess}"
+    try:
+        print("\n")
+        if not QQurl:
+            print("QQ服务的token未设置!!\n取消推送")
+            return
+        print("QQ服务启动")
+        response = requests.get(url=QQurl).json()
+        print(response)
+        if response['status'] == 'ok':
+            print('推送成功！')
+        else:
+            print('推送失败！')
+    except Exception as e:
+        print(e)
 '''
 if __name__ == '__main__':
     maina()
