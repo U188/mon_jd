@@ -120,23 +120,35 @@ def do_task_and_get_gift(token, comp, iphone, userid):
     share_mess = ttlshare(token)
     integral = ttl_userinfo(token)
     if '移动' in comp and int(integral) >= 45:
-        name, count = gift_count(633)
-        if int(count) > 0:
-            messagea = get_gift(token, userid, iphone, 633)
-        else:
-            pass
-    elif '电信' in comp and int(integral) >= 15:
         name, count = gift_count(631)
         if int(count) > 0:
             messagea = get_gift(token, userid, iphone, 631)
+            if '成功' in messagea:
+            	messagea='成功兑换30元'
+            else:
+                messagea=messagea
         else:
-            pass
+            messagea='数量不足，跳过'
+    elif '电信' in comp and int(integral) >= 15:
+        name, count = gift_count(633)
+        if int(count) > 0:
+            messagea = get_gift(token, userid, iphone, 633)
+            if '成功' in messagea:
+            	messagea='成功兑换10元'
+            else:
+                messagea=messagea
+        else:
+            messagea='数量不足，跳过'
     elif '联通' in comp and int(integral) >= 7:
         name, count = gift_count(62)
         if int(count) > 0:
             messagea = get_gift(token, userid, iphone, 62)
+            if '成功' in messagea:
+            	messagea='成功兑换5元'
+            else:
+                messagea=messagea
         else:
-            pass
+            messagea='数量不足，跳过'
     else:
         messagea = '不满足兑换条件，跳过'
     return sign_mess, share_mess,integral, messagea
@@ -196,6 +208,6 @@ if __name__ == '__main__':
 schedule.every().day.at("09:00").do(maina)
 schedule.every().day.at("12:00").do(maina)
 while True:
-    print('1')
+    print(datetime.now())
     schedule.run_pending()
     time.sleep(3000)
