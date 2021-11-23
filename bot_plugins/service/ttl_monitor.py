@@ -198,7 +198,7 @@ def maina():
     m = 1
     me = ''
     for each in lists:
-        #try:
+        try:
             print('-'*20+f'当前执行第个{m}账户'+'-'*20)
             if  each['iphone'] != '' and each['passw'] != '' and each['comp'] != '':
                 iphone = each['iphone']
@@ -214,10 +214,10 @@ def maina():
             elif not all(each.values()):
                 pushplus_bot('太太乐', f"第{m}个账户{qq}:\n空账户\n状态:跳过\n")
             m += 1
-        #except Exception as e:
-            #print(e)
+        except Exception as e:
+            print(e)
     print(me)
-    send_qq('531762900', me)
+    send_qq('', me)
 
 
 # 定义pushplus推送
@@ -264,11 +264,8 @@ def send_qq(qqgroup,mess):
         print(e)
 
 '''
-if __name__ == '__main__':
-    # token,userid=get_token('13091159008','xm552297')
-    # print(get_gift(token,userid,'13091159008',61))
+if __name__ == '__main__':    
     maina()
-    #send_qq('531762900', '测试！！')
 '''
 schedule.every().day.at("09:17").do(maina)
 schedule.every().day.at("12:17").do(maina)
