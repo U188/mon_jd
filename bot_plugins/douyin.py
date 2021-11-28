@@ -18,16 +18,21 @@ def dowm_load(url,name):
     movie_name = name
     downsize = 0
     #print('开始下载')
-    #startTime = time.time()
-    req = requests.get(movie_url, headers=headers, stream=True, verify=False)
+    startTime = time.time()
+    req = requests.get(movie_url, headers=headers, stream=True, verify=False,timeout=120)
+    file_size = int(req.headers['content-length'])
     with(open(path+'/vido/'+movie_name + '.mp4', 'wb')) as f:
         for chunk in req.iter_content(chunk_size=10000):
             if chunk:
                 f.write(chunk)
                 downsize += len(chunk)
-                #line = 'downloading %d KB/s - %.2f MB， 共 %.2f MB'
-                #line = line%(downsize/1024/(time.time()-startTime),downsize/1024/1024,downsize/1024/1024)
-                #print(line)
+                do_size = (downsize / file_size)*100
+                line = 'downloading %d KB/s - %.2f MB，已完成%d%%'
+                line = line%(downsize/1024/(time.time()-startTime),downsize/1024/1024,do_size)
+        if '100%' in line:
+            return True
+        else:
+            return False
 
 def move_vido(name):
     os.remove(name)
@@ -37,9 +42,11 @@ def move_vido(name):
 async def ssss(session: CommandSession):
     url=get_url()
     name=re.findall(r'(?<=\/lib\/).+(?=.mp4)',url)[0]
-    dowm_load(url,name)
-    time.sleep(10)
-    vido_path=f'{path}/vido/{name}.mp4'
-    await session.send('[CQ:video,file=file:///{}]'.format(vido_path))
-    time.sleep(5)
-    move_vido(vido_path)
+    do_load=dowm_load(url,name)
+    if do_load:
+        vido_path=f'{path}/vido/{name}.mp4'
+        await session.send('[CQ:video,file=file:///{}]'.format(vido_path))
+        time.sleep(30)
+        move_vido(vido_path)
+    else:
+        await session.send('下载出错啦！')
