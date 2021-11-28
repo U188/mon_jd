@@ -4,6 +4,7 @@ import requests,time,re
 import os,sys
 from nonebot.command import CommandSession
 from nonebot.experimental.plugin import on_command
+from nonebot import message_preprocessor
 import time, re
 path=os.path.join(os.path.dirname(__file__))
 headers = {
