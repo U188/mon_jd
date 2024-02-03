@@ -13,6 +13,6 @@ hostname = api-jiaoyu-brain.vas.lutongnet.com:8887
 
 
 var obj = JSON.parse($response.body);
-obj.data.freeTrialFlag ="false";
+obj.data.freeTrialFlag ="true";
 
 $done({ body: JSON.stringify(obj) });
