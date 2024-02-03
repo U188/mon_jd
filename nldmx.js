@@ -13,7 +13,7 @@ hostname = api-jiaoyu-brain.vas.lutongnet.com:8887
 
 
 var obj = JSON.parse($response.body);
-obj.data.orderStatus ="VIP0003";
-obj.data.nickname ="yyy";
+obj.data.orderStatus ="true";
+obj.data.nickname ="ttt";
 
 $done({ body: JSON.stringify(obj) });
